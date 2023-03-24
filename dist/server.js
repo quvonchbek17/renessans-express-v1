@@ -24,5 +24,11 @@ app.use((0, express_fileupload_1.default)({
     .then(() => console.log("Connected"))
     .catch((err) => console.log(err));
 app.use("/api/v1", routes_1.default);
+app.use("/*", (req, res) => {
+    res.status(404).json({
+        success: false,
+        message: "Url topilmadi !"
+    });
+});
 app.use(errorHandler_middleware_1.errorHandler);
 exports.default = app;

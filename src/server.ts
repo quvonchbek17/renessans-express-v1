@@ -1,4 +1,4 @@
-import express, { Application } from "express";
+import express, { Application, Request, Response } from "express";
 import mongo from "./config/mongo";
 import { errorHandler } from "./middlewares/errorHandler.middleware";
 import api from "./routes"
@@ -25,6 +25,12 @@ mongo()
     .catch((err: unknown) => console.log(err));
 
 app.use("/api/v1", api)
+app.use("/*", (req: Request, res: Response ): void => {
+     res.status(404).json({
+        success: false,
+        message: "Url topilmadi !"
+     })
+})
 app.use(errorHandler)
 
 
