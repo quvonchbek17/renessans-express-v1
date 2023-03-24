@@ -28,6 +28,4 @@ app.use("/api/v1", api)
 app.use(errorHandler)
 
 
-app.listen(9000,():void => {
-    console.log(9000);
-})
+export default app;
