@@ -57,7 +57,7 @@ export class FileUpload {
                 uploadName: fileName,
                 size: size,
                 type: file.mimetype,
-                url: "http://localhost:9000/api/v1/files/" + fileName
+                url: "https://api-renessans.mquvonchbek.uz/api/v1/files/" + fileName
               })
 
               await newFile.save()

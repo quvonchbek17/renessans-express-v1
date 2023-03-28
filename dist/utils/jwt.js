@@ -17,12 +17,12 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 class Jwt {
     static generateToken(payload) {
         return __awaiter(this, void 0, void 0, function* () {
-            return jsonwebtoken_1.default.sign(payload, process.env.SECRET_KEY || "");
+            return jsonwebtoken_1.default.sign(payload, "secretkeyjuda" || "");
         });
     }
     static verify(payload) {
         return __awaiter(this, void 0, void 0, function* () {
-            return jsonwebtoken_1.default.verify(payload, process.env.SECRET_KEY || "");
+            return jsonwebtoken_1.default.verify(payload, "secretkeyjuda" || "");
         });
     }
 }
