@@ -3,7 +3,7 @@ import Joi from "joi";
 export const postNews = Joi.object().keys({
   title: Joi.string().required(),
   desc: Joi.string().required(),
-  imgUrl: Joi.string().required(),
+  imgUrl: Joi.string()
 });
 
 export const updateNews = Joi.object().keys({

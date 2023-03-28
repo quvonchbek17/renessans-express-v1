@@ -8,7 +8,7 @@ const joi_1 = __importDefault(require("joi"));
 exports.postNews = joi_1.default.object().keys({
     title: joi_1.default.string().required(),
     desc: joi_1.default.string().required(),
-    imgUrl: joi_1.default.string().required(),
+    imgUrl: joi_1.default.string()
 });
 exports.updateNews = joi_1.default.object().keys({
     id: joi_1.default.string().regex(/^[0-9a-fA-F]{24}$/).required(),

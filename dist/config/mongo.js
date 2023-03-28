@@ -17,5 +17,5 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const { env } = process;
 dotenv_1.default.config();
 exports.default = () => __awaiter(void 0, void 0, void 0, function* () {
-    return yield mongoose_1.default.connect(`mongodb://${env.host}:${env.db_port}/${env.database}`);
+    return yield mongoose_1.default.connect(`mongodb://127.0.0.1:27017/renessans`);
 });

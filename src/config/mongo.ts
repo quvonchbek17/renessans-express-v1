@@ -5,5 +5,5 @@ const { env } = process
 dotenv.config()
 
 export default async ()=> {
-     return await mongoose.connect(`mongodb://${env.host}:${env.db_port}/${env.database}`)
+     return await mongoose.connect(`mongodb://127.0.0.1:27017/renessans`)
 }

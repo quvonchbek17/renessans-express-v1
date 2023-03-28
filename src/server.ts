@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from "express";
 import mongo from "./config/mongo";
+import cors from "cors";
 import { errorHandler } from "./middlewares/errorHandler.middleware";
 import api from "./routes"
 import dotenv from "dotenv";
@@ -8,6 +9,9 @@ import path from "path";
 import fileUpload from "express-fileupload";
 
 const app: Application = express()
+
+//// cors
+app.use(cors({ origin: "*" }))
 
 // Parsers
 app.use(express.json())
