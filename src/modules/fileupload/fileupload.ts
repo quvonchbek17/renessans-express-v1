@@ -87,7 +87,7 @@ export class FileUpload {
 
             const deleted  = await model.findOneAndDelete({uploadName: fileName})
 
-            fs.unlink(path.join(__dirname + "../../../uploads/" + deleted?.uploadName), (err) => {
+            fs.unlink(path.join(__dirname + "../../../uploads/" + fileName), (err) => {
                 if (err) {
                    throw err
                 }

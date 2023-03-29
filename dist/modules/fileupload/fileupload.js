@@ -88,7 +88,7 @@ class FileUpload {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const deleted = yield model_1.default.findOneAndDelete({ uploadName: fileName });
-                fs_1.default.unlink(path_1.default.join(__dirname + "../../../uploads/" + (deleted === null || deleted === void 0 ? void 0 : deleted.uploadName)), (err) => {
+                fs_1.default.unlink(path_1.default.join(__dirname + "../../../uploads/" + fileName), (err) => {
                     if (err) {
                         throw err;
                     }
