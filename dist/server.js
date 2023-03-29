@@ -8,6 +8,7 @@ const mongo_1 = __importDefault(require("./config/mongo"));
 const cors_1 = __importDefault(require("cors"));
 const errorHandler_middleware_1 = require("./middlewares/errorHandler.middleware");
 const routes_1 = __importDefault(require("./routes"));
+const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const path_1 = __importDefault(require("path"));
@@ -15,6 +16,14 @@ const express_fileupload_1 = __importDefault(require("express-fileupload"));
 const app = (0, express_1.default)();
 //// cors
 app.use((0, cors_1.default)({ origin: "*" }));
+//// limit
+const limiter = (0, express_rate_limit_1.default)({
+    windowMs: 2 * 60 * 1000,
+    max: 10000,
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+app.use(limiter);
 // Parsers
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));

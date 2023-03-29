@@ -3,6 +3,7 @@ import mongo from "./config/mongo";
 import cors from "cors";
 import { errorHandler } from "./middlewares/errorHandler.middleware";
 import api from "./routes"
+import rateLimit from "express-rate-limit";
 import dotenv from "dotenv";
 dotenv.config()
 import path from "path";
@@ -12,6 +13,16 @@ const app: Application = express()
 
 //// cors
 app.use(cors({ origin: "*" }))
+
+
+//// limit
+const limiter = rateLimit({
+	windowMs: 2 * 60 * 1000,
+	max: 10000,
+	standardHeaders: true,
+	legacyHeaders: false,
+})
+app.use(limiter)
 
 // Parsers
 app.use(express.json())
