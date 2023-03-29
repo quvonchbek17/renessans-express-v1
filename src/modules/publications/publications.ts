@@ -58,7 +58,7 @@ export class Publications {
         .catch((err: ErrorHandler) => next(new ErrorHandler(err.message, 503)))
         if(deleted) {
             let fileName = (deleted.fileUrl || "").split("/").at(-1)
-            await FileUpload.DeleteFile(fileName || "")
+           // await FileUpload.DeleteFile(fileName || "")
             res.status(200).json({
                 success: true,
                 data: deleted
