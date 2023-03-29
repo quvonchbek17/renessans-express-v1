@@ -60,6 +60,10 @@ export class News {
         .catch((err: ErrorHandler) => next(new ErrorHandler(err.message, 503)))
         if(deleted) {
             let fileName = (deleted.imgUrl || "").split("/").at(-1)
+            console.log(deleted);
+            console.log(fileName);
+            
+
             await FileUpload.DeleteFile(fileName || "")
             res.status(200).json({
                 success: true,
