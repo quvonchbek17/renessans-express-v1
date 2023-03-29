@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const jwt_1 = require("../../utils/jwt");
-const errorHandler_1 = require("../../errors/errorHandler");
 const model_1 = __importDefault(require("../../modules/login/model"));
 const protect = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -36,12 +35,6 @@ const protect = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
                 message: "Tokenda muammo bor !"
             });
             return;
-        }
-        if (decodedToken instanceof errorHandler_1.ErrorHandler) {
-            res.status(401).json({
-                success: false,
-                message: "Bearer token ish vaqti tugagan !!!"
-            });
         }
         const admin = yield model_1.default.findOne({ username: decodedToken.username, password: decodedToken.password });
         if (!admin) {

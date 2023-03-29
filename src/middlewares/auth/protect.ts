@@ -32,13 +32,6 @@ const protect = async(req: Request, res: Response, next: NextFunction) => {
       return
     }
 
-    if(decodedToken instanceof ErrorHandler){
-        res.status(401).json({
-            success: false,
-            message: "Bearer token ish vaqti tugagan !!!"
-        })
-    }
-
     const admin = await model.findOne({username: (decodedToken as any).username, password: (decodedToken as any).password })
 
 
