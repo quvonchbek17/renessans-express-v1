@@ -76,7 +76,7 @@ class FileUpload {
                     uploadName: fileName,
                     size: size,
                     type: file.mimetype,
-                    url: "https://api-renessans.mquvonchbek.uz/api/v1/files/" + fileName,
+                    url: "https://api.renessans-service.uz/api/v1/files/" + fileName,
                 });
                 yield newFile.save();
                 yield file.mv(path_1.default.join(__dirname + "../../../../../files/" + fileName), (err) => {

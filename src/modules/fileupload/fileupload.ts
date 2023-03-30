@@ -75,7 +75,7 @@ export class FileUpload {
         uploadName: fileName,
         size: size,
         type: file.mimetype,
-        url: "https://api-renessans.mquvonchbek.uz/api/v1/files/" + fileName,
+        url: "https://api.renessans-service.uz/api/v1/files/" + fileName,
       });
 
       await newFile.save();
