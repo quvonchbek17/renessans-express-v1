@@ -22,20 +22,17 @@ class FileUpload {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { name } = req.params;
-                fs_1.default.readFile(path_1.default.join(__dirname + "../../../uploads/" + name), (err, data) => {
+                fs_1.default.readFile(path_1.default.join(__dirname + "../../../../../files/" + name), (err, data) => {
                     if (err) {
-                        res.status(200).json({
+                        res.status(404).json({
                             success: false,
                             message: "File not found !",
                         });
                     }
                     else {
-                        res.sendFile(path_1.default.join(__dirname + "../../../uploads/" + name), function (err) {
+                        res.sendFile(path_1.default.join(__dirname + "../../../../../files/" + name), function (err) {
                             if (err) {
-                                next(err);
-                            }
-                            else {
-                                next();
+                                return "error";
                             }
                         });
                     }
@@ -49,16 +46,29 @@ class FileUpload {
     static Upload(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { file } = req.files;
+                let file;
+                try {
+                    file = req.files.file;
+                }
+                catch (err) {
+                    res.status(400).json({
+                        success: false,
+                        message: "File yuklang !!",
+                    });
+                    return;
+                }
                 let size = "";
                 if (file) {
-                    Math.floor(file.size / (1024 * 1024)) > 0 ? size = (file.size / (1024 * 1024)).toFixed(2) + " MB" : size = (file.size / 1024).toFixed(2) + " KB";
+                    Math.floor(file.size / (1024 * 1024)) > 0
+                        ? (size = (file.size / (1024 * 1024)).toFixed(2) + " MB")
+                        : (size = (file.size / 1024).toFixed(2) + " KB");
                 }
                 else {
                     res.status(400).json({
                         success: false,
-                        message: "File yuklang !!"
+                        message: "File yuklang !!",
                     });
+                    return;
                 }
                 let fileName = (0, uuid_1.v4)() + "." + file.name.split(".").at(-1);
                 const newFile = new model_1.default({
@@ -66,20 +76,19 @@ class FileUpload {
                     uploadName: fileName,
                     size: size,
                     type: file.mimetype,
-                    url: "https://api-renessans.mquvonchbek.uz/api/v1/files/" + fileName
+                    url: "https://api-renessans.mquvonchbek.uz/api/v1/files/" + fileName,
                 });
                 yield newFile.save();
-                yield file.mv(path_1.default.join(__dirname + "../../../uploads/" + fileName), (err) => {
+                yield file.mv(path_1.default.join(__dirname + "../../../../../files/" + fileName), (err) => {
                     if (err)
                         throw err;
                 });
                 res.status(200).json({
                     success: true,
-                    url: newFile.url
+                    url: newFile.url,
                 });
             }
             catch (error) {
-                console.log(error);
                 next(error);
             }
         });
@@ -88,15 +97,15 @@ class FileUpload {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const deleted = yield model_1.default.findOneAndDelete({ uploadName: fileName });
-                fs_1.default.unlink(path_1.default.join(__dirname + "../../../uploads/" + fileName), (err) => {
+                fs_1.default.unlink(path_1.default.join(__dirname + "../../../../../files/" + fileName), (err) => {
                     if (err) {
-                        throw err;
+                        return "error";
                     }
                 });
                 return "ok";
             }
             catch (error) {
-                return ("error");
+                return "error";
             }
         });
     }

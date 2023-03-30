@@ -61,7 +61,7 @@ export class News {
         if(deleted) {
             let fileName = (deleted.imgUrl || "").split("/").at(-1)
 
-            // await FileUpload.DeleteFile(fileName || "")
+            await FileUpload.DeleteFile(fileName || "")
             res.status(200).json({
                 success: true,
                 data: deleted

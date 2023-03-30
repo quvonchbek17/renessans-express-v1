@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Employees = void 0;
 const model_1 = __importDefault(require("./model"));
 const errorHandler_1 = require("../../errors/errorHandler");
+const fileupload_1 = require("../fileupload/fileupload");
 class Employees {
     static Get(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -74,7 +75,7 @@ class Employees {
                 .catch((err) => next(new errorHandler_1.ErrorHandler(err.message, 503)));
             if (deleted) {
                 let fileName = (deleted.imgUrl || "").split("/").at(-1);
-                // await FileUpload.DeleteFile(fileName || "")
+                yield fileupload_1.FileUpload.DeleteFile(fileName || "");
                 res.status(200).json({
                     success: true,
                     data: deleted
