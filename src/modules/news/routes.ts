@@ -2,15 +2,16 @@ import { deleteNews, postNews, updateNews } from "../../middlewares/validation/n
 import validate from "../../middlewares/validation/validate";
 import { Router } from "express";
 import {News} from "./news"
+import protect from "../../middlewares/auth/protect";
 
 
 const NewsRouter = Router()
 
 NewsRouter
     .get("/", News.Get)
-    .post("/", validate(postNews), News.Post)
-    .patch("/", validate(updateNews), News.Update)
-    .delete("/:id", validate(deleteNews, "params"), News.Delete)
+    .post("/", protect, validate(postNews), News.Post)
+    .patch("/", protect, validate(updateNews), News.Update)
+    .delete("/:id", protect, validate(deleteNews, "params"), News.Delete)
 
 
 export default NewsRouter
