@@ -33,6 +33,34 @@ export class FileUpload {
       next(error);
     }
   }
+  static async Download(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { name } = req.params;
+
+      fs.readFile(
+        path.join(__dirname + "../../../../../files/" + name),
+        (err: unknown, data) => {
+          if (err) {
+              res.status(404).json({
+                success: false,
+                message: "File not found !",
+              });
+            } else {
+              res.download(
+              path.join(__dirname + "../../../../../files/" + name),
+              function (err) {
+                if (err) {
+                  return "error"
+                }
+              }
+            );
+          }
+        }
+      );
+    } catch (error: unknown) {
+      next(error);
+    }
+  }
 
 
 
@@ -76,6 +104,7 @@ export class FileUpload {
         size: size,
         type: file.mimetype,
         url: "https://api.renessans-service.uz/api/v1/files/" + fileName,
+        downloadUrl: "https://api.renessans-service.uz/api/v1/files/download/" + fileName,
       });
 
       await newFile.save();
@@ -90,6 +119,7 @@ export class FileUpload {
       res.status(200).json({
         success: true,
         url: newFile.url,
+        downloadUrl: newFile.downloadUrl
       });
     } catch (error) {
       next(error);

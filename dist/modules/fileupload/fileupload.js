@@ -43,6 +43,31 @@ class FileUpload {
             }
         });
     }
+    static Download(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { name } = req.params;
+                fs_1.default.readFile(path_1.default.join(__dirname + "../../../../../files/" + name), (err, data) => {
+                    if (err) {
+                        res.status(404).json({
+                            success: false,
+                            message: "File not found !",
+                        });
+                    }
+                    else {
+                        res.download(path_1.default.join(__dirname + "../../../../../files/" + name), function (err) {
+                            if (err) {
+                                return "error";
+                            }
+                        });
+                    }
+                });
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
     static Upload(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -77,6 +102,7 @@ class FileUpload {
                     size: size,
                     type: file.mimetype,
                     url: "https://api.renessans-service.uz/api/v1/files/" + fileName,
+                    downloadUrl: "https://api.renessans-service.uz/api/v1/files/download/" + fileName,
                 });
                 yield newFile.save();
                 yield file.mv(path_1.default.join(__dirname + "../../../../../files/" + fileName), (err) => {
@@ -86,6 +112,7 @@ class FileUpload {
                 res.status(200).json({
                     success: true,
                     url: newFile.url,
+                    downloadUrl: newFile.downloadUrl
                 });
             }
             catch (error) {

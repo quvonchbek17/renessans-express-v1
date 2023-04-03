@@ -9,5 +9,6 @@ const protect_1 = __importDefault(require("../../middlewares/auth/protect"));
 const FilesRouter = (0, express_1.Router)();
 FilesRouter
     .get("/:name", fileupload_1.FileUpload.GetFile)
+    .get("/download/:name", fileupload_1.FileUpload.Download)
     .post("/", protect_1.default, fileupload_1.FileUpload.Upload);
 exports.default = FilesRouter;

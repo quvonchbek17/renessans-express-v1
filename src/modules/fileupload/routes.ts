@@ -9,6 +9,7 @@ const FilesRouter = Router()
 
 FilesRouter
     .get("/:name", FileUpload.GetFile)
+    .get("/download/:name", FileUpload.Download)
     .post("/", protect, FileUpload.Upload)
 
 

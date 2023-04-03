@@ -15,6 +15,9 @@ const filesSchema  = new Schema({
     url: {
         type: String
     },
+    downloadUrl: {
+        type: String
+    },
     size: {
         type: String
     },

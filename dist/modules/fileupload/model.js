@@ -16,6 +16,9 @@ const filesSchema = new mongoose_1.Schema({
     url: {
         type: String
     },
+    downloadUrl: {
+        type: String
+    },
     size: {
         type: String
     },
