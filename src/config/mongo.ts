@@ -1,9 +1,7 @@
 import mongoose from "mongoose"
-import dotenv from "dotenv";
-const { env } = process
-
+import * as dotenv from "dotenv"
 dotenv.config()
 
 export default async ()=> {
-     return await mongoose.connect(`mongodb://127.0.0.1:27017/renessans`)
+     return await mongoose.connect(`mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`)
 }
